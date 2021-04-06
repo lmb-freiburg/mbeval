@@ -1,13 +1,15 @@
 function boundaryBench_sintel(flowGTFile, mbFile, evFile)
 
+addpath(genpath('/misc/lmbraid19/saikiat/software/pdollar_toolbox/toolbox'));
+addpath(genpath('/misc/lmbraid19/saikiat/software/BSR/bench/benchmarks'));
+
 thinpb = true;
 maxDist = 0.0075;
 nthresh = 99;
 
-
+clear r;
+clear s;
 clear gt;
-%evFile = fullfile(outDir, strcat(iids(i).name,'_ev1.txt'));
-%iids(i).name
 
 flo=readFlowFile(flowGTFile);
 
@@ -25,20 +27,21 @@ for l=1:length(thrs)
 end
 
 % read mb
-%bdry2  = readFloat(mbFile);
 disp(mbFile);
 bdry2 = load(mbFile);
 bdrys=bdry2.data;
 sz2= 2;
-E = single(bdrys);
-Es = convTri(E,sz2);
 
+%figure,imshow(bdrys,[])
+E = single(bdrys);
+max(E(:))
+
+%display(size(E));
+Es = convTri(E,sz2);
 size(Es)
 [Ox,Oy]   = gradient2(Es);
 [Oxx,~]   = gradient2(Ox);
 [Oxy,Oyy] = gradient2(Oy);
 O         = mod(atan(Oyy.*sign(-Oxy)./(Oxx+1e-5)),pi);
 ucm2      = edgesNmsMex(E,O,1,5,1.01,4);
-
-%ucm2 =  edgesNmsMex(single(dx),O,1,5,1.01,5); %--> 0.2223
 evaluation_bdry_image_sintel(ucm2, gt, evFile, nthresh, maxDist, thinpb);
