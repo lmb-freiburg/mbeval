@@ -1,4 +1,4 @@
-function [thresh,cntR,sumR,cntP,sumP] = evaluation_bdry_image(inFile,gtFile, prFile, nthresh, maxDist, thinpb)
+function [thresh,cntR,sumR,cntP,sumP] = evaluation_bdry_image_sintel(inFile,gtFile, prFile, nthresh, maxDist, thinpb)
 % [thresh,cntR,sumR,cntP,sumP] = boundaryPR_image(inFile,gtFile, prFile, nthresh, maxDist, thinpb)
 %
 % Calculate precision/recall curve.
@@ -26,23 +26,7 @@ if nargin<6, thinpb = 1; end
 if nargin<5, maxDist = 0.0075; end
 if nargin<4, nthresh = 99; end
 
-%[p,n,e]=fileparts(inFile);
-%if strcmp(e,'.mat'),
-%    load(inFile);
-%end
-
-%if exist('ucm2', 'var'),
-%    pb = double(ucm2(3:2:end, 3:2:end));
-%    clear ucm2;
-%elseif ~exist('segs', 'var')
-%    pb = double(imread(inFile))/255;
-%end
 pb=inFile;
-
-%load(gtFile);
-%if isempty(groundTruth),
-%    error(' bad gtFile !');
-%end
 groundTruth=gtFile;
 if ~exist('segs', 'var')
     thresh = linspace(1/(nthresh+1),1-1/(nthresh+1),nthresh)';
@@ -61,22 +45,21 @@ cntP = zeros(size(thresh));
 sumP = zeros(size(thresh));
 
 for t = 1:nthresh,
-    
     if ~exist('segs', 'var')
         bmap = (pb>=thresh(t));
     else
         bmap = logical(seg2bdry(segs{t},'imageSize'));
     end
-    
     % thin the thresholded pb to make sure boundaries are standard thickness
     if thinpb,
         bmap = double(bwmorph(bmap, 'thin', inf));    % OJO
     end
-    
+
     % accumulate machine matches, since the machine pixels are
     % allowed to match with any segmentation
     accP = zeros(size(bmap(:,1:1024)));
-    
+
+
     % compare to each seg in turn
     for i = 1:numel(groundTruth),
         % compute the correspondence
@@ -101,5 +84,3 @@ if fid==-1,
 end
 fprintf(fid,'%10g %10g %10g %10g %10g\n',[thresh cntR sumR cntP sumP]');
 fclose(fid);
-
-
