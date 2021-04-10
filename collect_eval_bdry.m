@@ -1,5 +1,4 @@
 function [ bestF, bestP, bestR, bestT, F_max, P_max, R_max, Area_PR] = collect_eval_bdry(pbDir)
-% function [ bestF, bestP, bestR, bestT, F_max, P_max, R_max, Area_PR ] = collect_eval_bdry(pbDir)
 %
 % calculate P, R and F-measure from individual evaluation files
 %
@@ -19,7 +18,7 @@ if (length(dir(fname))==1),
   Area_PR = tmp(8);
 else
 
-    S = dir(fullfile(pbDir,'*_frame_*.txt'));
+    S = dir(fullfile(pbDir,'*_eval_*.txt'));
 
     % deduce nthresh from .pr files
     filename = fullfile(pbDir,S(1).name);
