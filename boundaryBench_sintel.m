@@ -1,7 +1,7 @@
 function boundaryBench_sintel(flowGTFile, mbFile, evFile)
 
-addpath(genpath('/misc/lmbraid19/saikiat/software/pdollar_toolbox/toolbox'));
-addpath(genpath('/misc/lmbraid19/saikiat/software/BSR/bench/benchmarks'));
+addpath(genpath('/pathto/pdollar_toolbox/toolbox'));
+addpath(genpath('/pathto/BSR/bench/benchmarks'));
 
 thinpb = true;
 maxDist = 0.0075;
