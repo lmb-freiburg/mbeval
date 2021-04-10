@@ -1,5 +1,5 @@
 # mbeval
-Evaluation code for motion boundaries:
+Motion boundary evaluation code for the paper:
 
 **Occlusions, Motion and Depth Boundaries with a Generic Network for Disparity, Optical Flow or Scene Flow**
 (E. Ilg and T. Saikia and M. Keuper and T. Brox published at ECCV 2018)
