@@ -7,8 +7,8 @@ Motion boundary evaluation code for the paper:
 
 # Instructions
 
-* Download the BSDS benchmark [[code]](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/resources.html)
-* Download [[Piotr's matlab toolbox]](https://pdollar.github.io/toolbox/)
+* Download the BSDS benchmark [code](https://www2.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/resources.html).
+* Download [Piotr's matlab toolbox](https://pdollar.github.io/toolbox/).
 * Set the correct paths in `boundaryBench_sintel.m` (L3-L4)
-* To evaluate a single example use `launch.sh flow_gt_0.flo mb_pred_0.mat eval_logs/mb_eval_0.txt`
-* After evaluating all examples, aggregate results using `collect_eval_bdry.m ./eval_logs`
+* To evaluate a single example use `launch.sh flow_gt_0.flo mb_pred_0.mat eval_logs/mb_eval_0.txt`.
+* After evaluating all examples, aggregate results using `collect_eval_bdry.m ./eval_logs`.
